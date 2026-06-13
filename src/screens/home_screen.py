@@ -14,34 +14,19 @@ def home_screen():
 
     # --- Student Card (Column 1) ---
     with col1:
-        # Clean centered Bungee title (smaller size)
         st.markdown("""
-            <div style="width: 100%; text-align: center;">
-                <h3 style="
-                    font-family: 'Bungee', sans-serif !important; 
-                    font-size: 1.20rem; 
-                    color: #FFFFFF; 
-                    margin: 0;
-                ">
-                    I'm Student
-                </h3>
+            <div class="card-title-container">
+                <h3 class="card-title">I'm Student</h3>
             </div>
         """, unsafe_allow_html=True)
         
-        # Load and display Student image (smaller circle dimensions)
+        # Load and display Student image
         student_path = os.path.join(current_dir, "..", "student.png")
         student_base64 = get_base64_image(student_path)
         
         st.markdown(f"""
-            <div style="display: flex; justify-content: center; width: 100%;">
-                <img src="{student_base64}" style="
-                    height: 100px; 
-                    width: 100px; 
-                    object-fit: cover; 
-                    border-radius: 50%; 
-                    border: 2px solid rgba(255, 255, 255, 0.2);
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-                ">
+            <div class="card-image-container">
+                <img src="{student_base64}" class="card-image">
             </div>
         """, unsafe_allow_html=True)
 
@@ -51,34 +36,19 @@ def home_screen():
 
     # --- Teacher Card (Column 2) ---
     with col2:
-        # Clean centered Bungee title (smaller size)
         st.markdown("""
-            <div style="width: 100%; text-align: center;">
-                <h3 style="
-                    font-family: 'Bungee', sans-serif !important; 
-                    font-size: 1.20rem; 
-                    color: #FFFFFF; 
-                    margin: 0;
-                ">
-                    I'm Teacher
-                </h3>
+            <div class="card-title-container">
+                <h3 class="card-title">I'm Teacher</h3>
             </div>
         """, unsafe_allow_html=True)
         
-        # Load and display Teacher image (smaller circle dimensions)
+        # Load and display Teacher image
         teacher_path = os.path.join(current_dir, "..", "teacher.png")
         teacher_base64 = get_base64_image(teacher_path)
         
         st.markdown(f"""
-            <div style="display: flex; justify-content: center; width: 100%;">
-                <img src="{teacher_base64}" style="
-                    height: 100px; 
-                    width: 100px; 
-                    object-fit: cover; 
-                    border-radius: 50%; 
-                    border: 2px solid rgba(255, 255, 255, 0.2);
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-                ">
+            <div class="card-image-container">
+                <img src="{teacher_base64}" class="card-image">
             </div>
         """, unsafe_allow_html=True)
 

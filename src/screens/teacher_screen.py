@@ -5,7 +5,11 @@ from src.components.footer import footer_home
 from src.ui.base_layout import background_dashboard
 
 def teacher_screen():
-    # Apply dark theme background
+    # Initialize the teacher mode state if it doesn't exist
+    if 'teacher_mode' not in st.session_state:
+        st.session_state['teacher_mode'] = 'login'
+
+    # Apply dark theme background class hook (triggers CSS rules for dashboards)
     background_dashboard()
     
     # Header Layout: Logo on the left, Back to Home button on the right
@@ -16,8 +20,8 @@ def teacher_screen():
     header_col1, header_col2 = st.columns([3, 1])
     with header_col1:
         st.markdown(f"""
-            <div style='display: flex; align-items: center; margin-top: 5px;'>
-                <img src='{logo_base64}' style='height: 40px; width: 150px; object-fit: cover; object-position: center; mix-blend-mode: screen;'>
+            <div class="dashboard-logo-container">
+                <img src="{logo_base64}" class="dashboard-logo">
             </div>
         """, unsafe_allow_html=True)
     with header_col2:
@@ -26,48 +30,73 @@ def teacher_screen():
             st.session_state['login_type'] = None
             st.rerun()
 
-    # Page Title in Bungee Font
-    st.markdown("""
-        <h3 style="
-            font-family: 'Bungee', sans-serif !important; 
-            font-size: 2rem; 
-            color: #FFFFFF; 
-            text-align: center; 
-            margin: 30px 0;
-            text-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        ">
-            Register your teacher profile
+    # 1. Determine Title based on active mode
+    if st.session_state['teacher_mode'] == 'login':
+        title_text = "Login to your teacher profile"
+    else:
+        title_text = "Register your teacher profile"
+
+    # 2. Render Title (called BEFORE st.columns, so it renders above the form container)
+    st.markdown(f"""
+        <h3 class="dashboard-title">
+            {title_text}
         </h3>
     """, unsafe_allow_html=True)
 
-    # Form Container Columns (Centers the form card on the page)
+    # 3. Form Container Columns (Centers the form card on the page)
     form_col_left, form_col, form_col_right = st.columns([1, 4, 1])
-    
+
     with form_col:
-        # Username Field
-        st.text_input("Enter username", placeholder="@username", key="teacher_username")
-        
-        # Name Field
-        st.text_input("Enter name", placeholder="Enter your full name", key="teacher_name")
-        
-        # Password Field
-        st.text_input("Enter password", type="password", placeholder="Enter your password", key="teacher_password")
-        
-        # Confirm Password Field
-        st.text_input("Confirm password", type="password", placeholder="Confirm your password", key="teacher_confirm_password")
-        
-        # Spacer
-        st.markdown("<div style='margin-bottom: 25px;'></div>", unsafe_allow_html=True)
-        
-        # Action Buttons Row
-        btn_col1, btn_col2 = st.columns(2)
-        with btn_col1:
-            # Primary (blue) Register button
-            if st.button("👤 Register Now", type="primary", use_container_width=True, key="teacher_register"):
-                st.success("Registration mockup submitted!")
-        with btn_col2:
-            # Secondary (pink) Login button
-            if st.button("👥 Login instead", type="secondary", use_container_width=True, key="teacher_login"):
-                pass
+        # Dynamic Form State: Login Mode
+        if st.session_state['teacher_mode'] == 'login':
+            # Username Field
+            st.text_input("Enter username", placeholder="@username", key="teacher_login_username")
+            
+            # Password Field
+            st.text_input("Enter password", type="password", placeholder="Enter your password", key="teacher_login_password")
+            
+            # Spacer
+            st.markdown('<div class="form-spacer"></div>', unsafe_allow_html=True)
+            
+            # Action Buttons Row
+            btn_col1, btn_col2 = st.columns(2)
+            with btn_col1:
+                # Primary (blue) Login button
+                if st.button("🔑 Login Now", type="primary", use_container_width=True, key="teacher_login_btn"):
+                    st.success("Login mockup submitted!")
+            with btn_col2:
+                # Secondary (pink) Register switch button
+                if st.button("👤 Register instead", type="secondary", use_container_width=True, key="teacher_register_switch"):
+                    st.session_state['teacher_mode'] = 'register'
+                    st.rerun()
+
+        # Dynamic Form State: Register Mode
+        else:
+            # Username Field
+            st.text_input("Enter username", placeholder="@username", key="teacher_register_username")
+            
+            # Name Field
+            st.text_input("Enter name", placeholder="Enter your full name", key="teacher_register_name")
+            
+            # Password Field
+            st.text_input("Enter password", type="password", placeholder="Enter your password", key="teacher_register_password")
+            
+            # Confirm Password Field
+            st.text_input("Confirm password", type="password", placeholder="Confirm your password", key="teacher_register_confirm_password")
+            
+            # Spacer
+            st.markdown('<div class="form-spacer"></div>', unsafe_allow_html=True)
+            
+            # Action Buttons Row
+            btn_col1, btn_col2 = st.columns(2)
+            with btn_col1:
+                # Primary (blue) Register button
+                if st.button("👤 Register Now", type="primary", use_container_width=True, key="teacher_register_btn"):
+                    st.success("Registration mockup submitted!")
+            with btn_col2:
+                # Secondary (pink) Login switch button
+                if st.button("🔑 Login instead", type="secondary", use_container_width=True, key="teacher_login_switch"):
+                    st.session_state['teacher_mode'] = 'login'
+                    st.rerun()
 
     footer_home()

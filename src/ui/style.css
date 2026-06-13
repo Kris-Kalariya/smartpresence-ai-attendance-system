@@ -1,0 +1,275 @@
+/* ==========================================
+   1. FONTS & GLOBAL DEFAULTS
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Hide Streamlit brandings and top toolbar */
+#MainMenu,
+footer,
+header {
+    visibility: hidden;
+}
+
+.block-container {
+    padding-top: 0.5rem !important;
+}
+
+/* Base typography */
+h1,
+h2 {
+    font-family: 'Bungee', sans-serif !important;
+    color: #FFFFFF !important;
+    font-size: 3.5rem !important;
+    line-height: 1.1 !important;
+    margin-bottom: 0.5rem !important;
+    text-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+h3,
+h4,
+p,
+span,
+label {
+    font-family: 'Poppins', sans-serif !important;
+    color: #E2E8F0 !important;
+}
+
+/* Inputs styling */
+div[data-baseweb="input"],
+div[data-baseweb="select"] {
+    background-color: #1E293B !important;
+    border: 1px solid #334155 !important;
+    border-radius: 0.75rem !important;
+}
+
+/* ==========================================
+   2. BUTTON STYLING & HOVER STATES
+   ========================================== */
+
+/* Primary Streamlit Buttons (Blue/Blurple) */
+button[data-testid="stBaseButton-primary"] {
+    background: #5865F2 !important;
+    border-radius: 1.5rem !important;
+    color: white !important;
+    padding: 10px 24px !important;
+    border: none !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    transition: all 0.25s ease-in-out !important;
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4) !important;
+}
+
+/* Secondary Streamlit Buttons (Neon Pink) */
+button[data-testid="stBaseButton-secondary"] {
+    background: #EB459E !important;
+    border-radius: 1.5rem !important;
+    color: white !important;
+    padding: 10px 24px !important;
+    border: none !important;
+    font-weight: 600 !important;
+    font-family: 'Poppins', sans-serif !important;
+    transition: all 0.25s ease-in-out !important;
+    box-shadow: 0 4px 15px rgba(235, 69, 158, 0.4) !important;
+}
+
+/* Global Button Hover Effects */
+button:hover {
+    transform: translateY(-2px) scale(1.03) !important;
+    filter: brightness(1.15) !important;
+}
+
+/* ==========================================
+   3. HOME SCREEN SCOPED LAYOUT
+   ========================================== */
+
+/* Home Background Gradient & Scroll Control */
+.stApp:has(.home-container) {
+    background: linear-gradient(135deg, #0F172A 0%, #1E1B4B 100%) !important;
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+/* Center and space out columns on home screen */
+.stApp:has(.home-container) div[data-testid="stHorizontalBlock"] {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    max-width: 560px !important;
+    margin: 10px auto 0 auto !important;
+}
+
+/* Streamlit columns styled as compact cards */
+.stApp:has(.home-container) div[data-testid="stColumn"] {
+    background: rgba(30, 41, 59, 0.45) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 20px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+    transition: all 0.3s ease-in-out !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 270px !important;
+    max-width: 240px !important;
+    margin: 0 auto !important;
+}
+
+/* Home Card Hover Effect */
+.stApp:has(.home-container) div[data-testid="stColumn"]:hover {
+    transform: translateY(-4px) !important;
+    background: rgba(30, 41, 59, 0.6) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Alignment within the home card columns */
+.stApp:has(.home-container) div[data-testid="stColumn"] [data-testid="stVerticalBlock"] {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 12px !important;
+}
+
+.stApp:has(.home-container) div[data-testid="stColumn"] [data-testid="stVerticalBlock"]>div {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+/* Custom home card button overrides */
+.stApp:has(.home-container) div[data-testid="stColumn"] button {
+    background: #5865F2 !important;
+    border-radius: 1.5rem !important;
+    padding: 6px 18px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(88, 101, 242, 0.3) !important;
+    color: white !important;
+    border: none !important;
+    margin: 20px auto 0 10px !important;
+    width: 90% !important;
+}
+
+.stApp:has(.home-container) div[data-testid="stColumn"] button:hover {
+    transform: translateY(-2px) scale(1.03) !important;
+    filter: brightness(1.15) !important;
+}
+
+/* ==========================================
+   4. DASHBOARD SCOPED LAYOUT
+   ========================================== */
+
+/* Dark obsidian blue background for dashboard screens */
+.stApp:has(.dashboard-container) {
+    background: #0B0F19 !important;
+}
+
+/* ==========================================
+   5. EXTRACTED COMPONENT CLASSES
+   ========================================== */
+
+/* Card Titles & Images (Home Screen) */
+.card-title-container {
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.card-title {
+    font-family: 'Bungee', sans-serif !important;
+    font-size: 1.20rem !important;
+    color: #FFFFFF !important;
+    margin: 0 !important;
+}
+
+.card-image-container {
+    display: flex !important;
+    justify-content: center !important;
+    width: 100% !important;
+}
+
+.card-image {
+    height: 100px !important;
+    width: 100px !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Header Component */
+.header-logo-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 50px !important;
+    margin-top: -10px !important;
+}
+
+.header-logo {
+    height: 100px !important;
+    width: 200px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    mix-blend-mode: screen !important;
+}
+
+/* Footer Component */
+.footer-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 50px !important;
+    font-family: 'Poppins', sans-serif !important;
+    color: #FFFFFF !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+}
+
+.footer-heart {
+    color: #FF4B4B !important;
+}
+
+.footer-name-kris {
+    color: #FFC045 !important;
+    font-family: 'Bungee', sans-serif !important;
+}
+
+.footer-name-kalariya {
+    color: #FFFFFF !important;
+    font-family: 'Bungee', sans-serif !important;
+}
+
+/* Teacher Dashboard Specific Elements */
+.dashboard-logo-container {
+    display: flex !important;
+    align-items: center !important;
+    margin-top: 5px !important;
+}
+
+.dashboard-logo {
+    height: 40px !important;
+    width: 150px !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    mix-blend-mode: screen !important;
+}
+
+.dashboard-title {
+    font-family: 'Bungee', sans-serif !important;
+    font-size: 2rem !important;
+    color: #FFFFFF !important;
+    text-align: center !important;
+    margin: 30px 0 !important;
+    text-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+}
+
+.form-spacer {
+    margin-bottom: 25px !important;
+}

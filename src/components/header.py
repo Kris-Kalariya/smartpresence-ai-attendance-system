@@ -20,7 +20,7 @@ def header_home():
 
     # Uses object-fit: cover to crop the top/bottom blank spaces inside the image file
     st.markdown(f"""
-        <div style='display: flex; justify-content: center; align-items: center; margin-bottom: 50px; margin-top: -10px;'>
-            <img src='{logo_base64}' style='height: 100px; width: 200px; object-fit: cover; object-position: center; mix-blend-mode: screen;'>
+        <div class="header-logo-container">
+            <img src="{logo_base64}" class="header-logo">
         </div>
     """, unsafe_allow_html=True)
