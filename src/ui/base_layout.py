@@ -66,7 +66,7 @@ def background_home():
             
             /* Compact capsule buttons centered inside the cards */
             div[data-testid="stColumn"] button {
-                background: #EB459E !important; /* Discord Blurple */
+                background: #5865F2 !important; /* Discord Blurple */
                 border-radius: 1.5rem !important;
                 padding: 6px 18px !important;
                 font-size: 0.9rem !important;
@@ -99,7 +99,7 @@ def base_layout():
     """Applies the core dark theme styling, typography, and button states."""
     st.markdown("""
         <style>
-            /* Separate Font Imports (More reliable for Streamlit) */
+            /* Separate Font Imports */
             @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
@@ -132,6 +132,40 @@ def base_layout():
                 background-color: #1E293B !important;
                 border: 1px solid #334155 !important;
                 border-radius: 0.75rem !important;
+            }
+
+            /* --- Custom Button Theme Styling --- */
+            
+            /* Primary Streamlit Buttons (Blue/Blurple) */
+            button[data-testid="stBaseButton-primary"] {
+                background: #5865F2 !important; 
+                border-radius: 1.5rem !important;
+                color: white !important;
+                padding: 10px 24px !important;
+                border: none !important;
+                font-weight: 600 !important;
+                font-family: 'Poppins', sans-serif !important;
+                transition: all 0.25s ease-in-out !important;
+                box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4) !important;
+            }
+            
+            /* Secondary Streamlit Buttons (Neon Pink) */
+            button[data-testid="stBaseButton-secondary"] {
+                background: #EB459E !important; 
+                border-radius: 1.5rem !important;
+                color: white !important;
+                padding: 10px 24px !important;
+                border: none !important;
+                font-weight: 600 !important;
+                font-family: 'Poppins', sans-serif !important;
+                transition: all 0.25s ease-in-out !important;
+                box-shadow: 0 4px 15px rgba(235, 69, 158, 0.4) !important;
+            }
+
+            /* Global Button Hover Effects */
+            button:hover {
+                transform: translateY(-2px) scale(1.03) !important;
+                filter: brightness(1.15) !important;
             }
         </style>
     """, unsafe_allow_html=True)
