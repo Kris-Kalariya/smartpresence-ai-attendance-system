@@ -3,9 +3,49 @@ import os
 from src.components.header import get_base64_image
 from src.components.footer import footer_home
 from src.ui.base_layout import background_dashboard
+from src.database.database import check_teacher_exist, register_teacher, login_teacher
 
-def teacher_screen():
+def register_teacher_ui(teacher_username, teacher_name, teacher_pass, teacher_pass_confirm):
+    if not teacher_username or not teacher_name or not teacher_pass:
+        return False, "All fields are required"
+    if check_teacher_exist(teacher_username):
+        return False, "Username already taken"
+    if teacher_pass != teacher_pass_confirm:
+        return False, "Password doesn't match"
+    
+    try:
+        register_teacher(teacher_username, teacher_pass, teacher_name)
+        return True, "Successfully created! Login now"
+    except Exception as e:
+        return False, "Unexpected Error!"
+
+
+def login_teacher_ui(username, password):
+    if not username or not password:
+        return False
+    
+    teacher = login_teacher(username, password)
+    if teacher:
+        st.session_state.user_role = "teacher"
+        st.session_state.teacher_data = teacher
+        st.session_state.is_logged_in = True
+        return True
+    
+    return False
+
+
+def teacher_dashboard():
+    teacher_data = st.session_state.teacher_data
+    st.header(f"""
+        Welcome, {teacher_data['name']}""")
+
+
+
+def teacher_screen_register():
     # Initialize the teacher mode state if it doesn't exist
+    if 'teacher_data' in st.session_state:
+        teacher_dashboard()
+        return
     if 'teacher_mode' not in st.session_state:
         st.session_state['teacher_mode'] = 'login'
 
@@ -50,10 +90,10 @@ def teacher_screen():
         # Dynamic Form State: Login Mode
         if st.session_state['teacher_mode'] == 'login':
             # Username Field
-            st.text_input("Enter username", placeholder="@username", key="teacher_login_username")
+            teacher_login_username = st.text_input("Enter username", placeholder="@username")
             
             # Password Field
-            st.text_input("Enter password", type="password", placeholder="Enter your password", key="teacher_login_password")
+            teacher_login_pass = st.text_input("Enter password", type="password", placeholder="Enter your password")
             
             # Spacer
             st.markdown('<div class="form-spacer"></div>', unsafe_allow_html=True)
@@ -63,7 +103,13 @@ def teacher_screen():
             with btn_col1:
                 # Primary (blue) Login button
                 if st.button("🔑 Login Now", type="primary", use_container_width=True, key="teacher_login_btn"):
-                    st.success("Login mockup submitted!")
+                    if login_teacher_ui(teacher_login_username, teacher_login_pass):
+                        st.toast('Welcome Back!', icon='👋')
+                        import time
+                        time.sleep(2)
+                        st.rerun()
+                    else:
+                        st.error("Invalid username or password")
             with btn_col2:
                 # Secondary (pink) Register switch button
                 if st.button("👤 Register instead", type="secondary", use_container_width=True, key="teacher_register_switch"):
@@ -73,16 +119,16 @@ def teacher_screen():
         # Dynamic Form State: Register Mode
         else:
             # Username Field
-            st.text_input("Enter username", placeholder="@username", key="teacher_register_username")
+            teacher_username = st.text_input("Enter username", placeholder="@username")
             
             # Name Field
-            st.text_input("Enter name", placeholder="Enter your full name", key="teacher_register_name")
+            teacher_name = st.text_input("Enter name", placeholder="Enter your full name")
             
             # Password Field
-            st.text_input("Enter password", type="password", placeholder="Enter your password", key="teacher_register_password")
+            teacher_pass = st.text_input("Enter password", type="password", placeholder="Enter your password")
             
             # Confirm Password Field
-            st.text_input("Confirm password", type="password", placeholder="Confirm your password", key="teacher_register_confirm_password")
+            teacher_pass_confirm = st.text_input("Confirm password", type="password", placeholder="Confirm your password")
             
             # Spacer
             st.markdown('<div class="form-spacer"></div>', unsafe_allow_html=True)
@@ -92,7 +138,15 @@ def teacher_screen():
             with btn_col1:
                 # Primary (blue) Register button
                 if st.button("👤 Register Now", type="primary", use_container_width=True, key="teacher_register_btn"):
-                    st.success("Registration mockup submitted!")
+                    success, message = register_teacher_ui(teacher_username, teacher_name, teacher_pass, teacher_pass_confirm)
+                    if success:
+                        st.success(message)
+                        import time
+                        time.sleep(2)
+                        st.session_state.teacher_mode = "login"
+                        st.rerun()
+                    else:
+                        st.error(message)
             with btn_col2:
                 # Secondary (pink) Login switch button
                 if st.button("🔑 Login instead", type="secondary", use_container_width=True, key="teacher_login_switch"):
